@@ -1,0 +1,69 @@
+<%= form_for @item, remote: true do |f| %>
+  <div class="card card-body mb-3">
+    <div class="row">
+      <div class="col pb-3">
+        <%= f.label :title, "Title", class: "form-label" %>
+        <%= f.text_field :title, class: "form-control" , placeholder: "e.g. Cargo pants" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= f.label :description, class: "form-label"  %>
+        <%= f.text_area :description, class: "form-control", rows: 5 %>
+      </div>
+    </div>
+  </div>
+  <div class="card card-body mb-3">
+    <h5 class="card-title">Pricing</h5>
+    <div class="row">
+      <div class="col">
+        <%= f.label :price, class: "form-label" %>
+        <%= f.number_field :price, value: @item.price ? @item.price / 100.0 : "", min: 0, step: 0.01, class: "form-control" %>
+      </div>
+      <div class="col">
+        <%= f.label :compare_at_price, class: "form-label" %>
+        <%= f.number_field :compare_at_price, value: @item.compare_at_price ? @item.compare_at_price / 100.0 : "", min: 0, step: 0.01, class: "form-control" %>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-6">
+        <%= f.label :unit_cost, "Cost per item", class: "form-label" %>
+        <%= f.number_field :unit_cost, min: 0, value: @item.unit_cost ? @item.unit_cost / 100.0 : "", step: 0.01, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  <%= f.fields_for :inventory do |i| %>
+    <%= render partial: "inventories/partials/form_fields", locals: {f: i} %>
+  <% end %>
+  <!-- 
+  <div class="card card-body mb-3">
+    <h5 class="card-title">Inventory</h5>
+    <div class="row">
+      <div class="col pb-3">
+        <%= f.label :price, class: "form-label" %>
+        <%= f.number_field :price, min: 0, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-check">
+          <%= check_box_tag :track_quantity, "", true, class: "form-check-input" %>
+          <%= label_tag :track_quantity, "Track quantity", class: "form-check-label" %>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h5 class="card-title">Quantity</h5>
+    <div class="row">
+      <div class="col">
+        <%= f.label :price, "Available", class: "form-label" %>
+        <%= f.number_field :price, min: 0, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  -->
+  <div class="actions">
+    <%= f.submit "Save", class: "btn btn-primary float-end" %>
+  </div>
+<% end %>

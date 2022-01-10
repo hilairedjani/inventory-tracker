@@ -1,0 +1,107 @@
+<% if notice %>
+  <div id="notice" class="alert alert-success" role="alert">
+    <%= notice  %>
+  </div>
+<% end %>
+<% if @items.any? %>
+  <div class="row">
+    <div class="col">
+      <h2>Products</h2>
+    </div>
+    <div class="col-auto">
+      <%= button_tag 'Delete product(s)', id: "bulk-delete-button", class: "btn btn-danger", type: "button" %>
+      <%#= link_to 'Delete product(s)', new_item_path, class: "btn btn-danger" %>
+    </div>
+    <div class="col-auto">
+      <%= link_to 'Add product', new_item_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Product</th>
+              <th scope="col">Inventory</th>
+              <%# <th scope="col">Type</th> %>
+              <th scope="col">Actions</th>
+              <%# <th scope="col">SKU</th> %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @items.each do |item| %>
+              <tr>
+                <th scope="row">
+                  <%= check_box_tag "item_ids[]", item.id, false, class: 'item_ids', data: {item_id: item.id} %>
+                </th>
+                <td><%= item.title %></td>
+                <td><%= item.inventory&.track_quantity ? item.inventory.quantity : "Inventory not tracked" %></td>
+                <%# <td></td> %>
+                <td>
+                  <%= link_to 'Edit', edit_item_path(item), class: "btn btn-info btn-sm" %>
+                  <%= link_to 'Delete', item, class: "btn btn-danger btn-sm", method: :delete, remote: true, data: {confirm: "Are you sure you want to permanently delete this product?\nThis action is irreversible."} %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col">
+      <h2>Products</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>You have no products yet</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= link_to 'Add Product', new_item_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<script>
+  var elements = document.getElementsByClassName("item_ids");
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].addEventListener("click", (event) => {
+      if(event.target.checked) {
+        event.target.closest("tr").classList.add("table-secondary")
+      } else {
+        event.target.closest("tr").classList.remove("table-secondary")
+      }
+    }, false)
+  }
+  
+  document.getElementById("bulk-delete-button")?.addEventListener("click", event => {
+    event.preventDefault()
+    // Confirm items bulk deletion
+    if(confirm("Are you sure you want to permanently delete the selected items?\nThis action is irreversible.")) {
+      // Fetch selected items
+      let selecedItemIds = []
+      let items = document.getElementsByClassName("item_ids");
+      for (let i = 0; i < items.length; i++) {
+        if(items[i].checked) {
+          selecedItemIds.push(items[i].dataset.itemId)
+        }
+      }
+  
+      // Bulk delete selected items
+      if(selecedItemIds.length > 0) {
+        fetch("/items/bulk_delete", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ item_ids: selecedItemIds})
+        })
+      }
+    }
+  },false)
+</script>

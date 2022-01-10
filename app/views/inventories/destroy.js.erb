@@ -1,0 +1,3 @@
+<% if @errors.any? %>
+  document.getElementById("item-notices").innerHTML = '<%=j render partial: "layouts/partials/error_notices", locals: { notices: @errors } %>'
+<% end %>
