@@ -5,7 +5,9 @@ class Inventory < ApplicationRecord
 
     # == VALIDATIONS
     validates :sku, presence: true, uniqueness: { case_sensitive: false }
-
+    validates :quantity, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+    validates :par_level, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+    validates :sold, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 
     # Export inventory as csv
     def self.to_csv

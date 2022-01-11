@@ -1,11 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  quantity: 
-  par_level: 
+  quantity: 10
+  par_level: 8
   sold: 
+  sku: "K123"
+  barcode:
+  track_quantity:
+  status:
+  item: one
 
 two:
-  quantity: 
-  par_level: 
+  quantity: 15
+  par_level: 17
   sold: 
+  sku: "K124"
+  barcode:
+  track_quantity:
+  status:
+  item: two 

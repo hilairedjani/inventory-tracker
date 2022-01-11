@@ -1,17 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  price: 
-  sku: MyString
-  description: MyText
-  tags: MyText
+  title: Product One
+  price: 20
+  unit_cost: 15
+  compare_at_price: 25
+  description: Product One
+  tags: 
   status: 
 
 two:
-  name: MyString
-  price: 
-  sku: MyString
-  description: MyText
-  tags: MyText
+  title: Product Two
+  price: 30
+  unit_cost: 20
+  compare_at_price: 40
+  description: Product Two
+  tags: 
   status: 
