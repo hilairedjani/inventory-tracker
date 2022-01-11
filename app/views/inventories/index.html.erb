@@ -17,10 +17,10 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Product</th>
               <th scope="col">SKU</th>
+              <th scope="col">Product</th>
               <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -28,9 +28,9 @@
             <% @inventories.each_with_index do |inventory, i| %>
               <% if inventory.track_quantity %>
                 <tr>
-                  <th scope="row"><%= i %></th>
-                  <td><%= inventory.item.title %></td>
                   <td><%= inventory.sku %></td>
+                  <td><%= inventory.item.title %></td>
+                  <td><%= inventory.item.price %></td>
                   <td><%= inventory.quantity %></td>
                   <td>
                     <%= link_to 'Edit', edit_item_path(inventory.item), class: "btn btn-info btn-sm" %>

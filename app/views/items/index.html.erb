@@ -100,6 +100,14 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ item_ids: selecedItemIds})
+        }).then(response => {
+          console.log(response)
+          if(response.statusText == "OK") {
+            alert("Items deleted successfully")
+            window.location.replace("<%= items_path %>")
+          } else {
+            alert("Could not delete items")
+          }
         })
       }
     }

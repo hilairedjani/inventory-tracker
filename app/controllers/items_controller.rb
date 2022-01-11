@@ -65,13 +65,15 @@ class ItemsController < ApplicationController
 
   # POST /items/bulk_delete
   def bulk_destroy
-
+    
     if(params[:item_ids])
-       if Item.where(id: params[:item_ids]).update_all(status: Item.statuses[:deleted])
-        redirect_to items_url(notice: "Items were successfully deleted.")
-       else
-        redirect_to items_path, notice: "Could not delete items"
-       end
+      respond_to do |format|
+        if Item.where(id: params[:item_ids]).destroy_all
+          format.json { render :index, status: :ok}
+        else
+          format.json { render json: @type.errors, status: :unprocessable_entity }
+        end
+      end
     end
   end
 
