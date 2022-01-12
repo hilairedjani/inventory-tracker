@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
-    puts @item.inventory.inspect
+
   end
 
   # POST /items or /items.json
@@ -44,9 +44,7 @@ class ItemsController < ApplicationController
 
     format_fields
 
-    puts @item.inventory.inspect
     if @item.save
-      puts @item.inventory.inspect
       redirect_to edit_item_path(@item), notice: "Product was successfully updated."
     else
       @errors = @item.errors.full_messages
@@ -88,7 +86,7 @@ class ItemsController < ApplicationController
       @item.compare_at_price = (item_params[:compare_at_price].to_f * 100).to_i if item_params[:compare_at_price]
       @item.unit_cost = (item_params[:unit_cost].to_f * 100).to_i if item_params[:unit_cost]
 
-      @item.inventory.track_quantity = item_params[:inventory_attributes][:track_quantity] == "1" ? true : false
+      @item.inventory.track_quantity = item_params[:inventory_attributes][:track_quantity] == "1" ? true : false if item_params[:inventory_attributes]
     end
 
     # Only allow a list of trusted parameters through.

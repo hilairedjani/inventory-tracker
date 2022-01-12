@@ -2,6 +2,7 @@ require "test_helper"
 
 class InventoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @item = items(:one)
     @inventory = inventories(:one)
   end
 
@@ -17,7 +18,7 @@ class InventoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create inventory" do
     assert_difference('Inventory.count') do
-      post inventories_url, params: { inventory: { par_level: @inventory.par_level, quantity: @inventory.quantity, sold: @inventory.sold } }
+      post inventories_url, params: { inventory: { sku: "1234", par_level: @inventory.par_level, quantity: @inventory.quantity, sold: @inventory.sold, item_id: @item.id } }
     end
 
     assert_redirected_to inventory_url(Inventory.last)

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :types
   root to: "items#index"
 
 
