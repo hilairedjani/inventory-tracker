@@ -29,9 +29,9 @@
               <% if inventory.track_quantity %>
                 <tr>
                   <td><%= inventory.sku %></td>
-                  <td><%= inventory.item.title %></td>
-                  <td><%= inventory.item.price %></td>
+                  <td><%= inventory.title %></td>
                   <td><%= inventory.quantity %></td>
+                  <td><%= inventory.price ? inventory.price / 100.0 : "" %></td>
                   <td>
                     <%= link_to 'Edit', edit_item_path(inventory.item), class: "btn btn-info btn-sm" %>
                     <%= link_to 'Delete', inventory, class: "btn btn-danger btn-sm", method: :delete, remote: true, data: {confirm: "Are you sure you want to permanently delete this product?\nThis action is irreversible."} %>

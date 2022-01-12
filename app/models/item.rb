@@ -13,6 +13,9 @@ class Item < ApplicationRecord
 
     accepts_nested_attributes_for :inventory
 
+    # == Delegations
+    delegate :quantity, :sku, :barcode, to: :inventory
+
     # == ENUMS
     enum status: %i[active inactive deleted]
 
